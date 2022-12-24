@@ -4,7 +4,8 @@
   "description": "backup your eth with timelocked contracts",
   "main": "index.js",
   "scripts": {
-    "test": "npx hardhat test"
+    "test": "npx hardhat test",
+    "backup": "npx hardhat run scripts/createBackup.ts"
   },
   "repository": {
     "type": "git",
@@ -26,7 +27,6 @@
   "dependencies": {
     "@openzeppelin/contracts": "^4.7.3",
     "dotenv": "^16.0.3",
-    "ethereumjs-util": "^7.1.5",
     "hardhat": "^2.12.0"
   }
 }
