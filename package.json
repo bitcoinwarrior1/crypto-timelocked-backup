@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "npx hardhat test",
-    "backup": "npx hardhat run scripts/createBackup.ts"
+    "backup-hardhat": "npx hardhat run scripts/createBackup.ts --network hardhat",
+    "backup-goerli": "npx hardhat run scripts/createBackup.ts --network goerli",
+    "backup-mainnet": "npx hardhat run scripts/createBackup.ts --network mainnet"
   },
   "repository": {
     "type": "git",
