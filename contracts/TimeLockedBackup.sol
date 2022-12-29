@@ -1,15 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.9;
 
+import "./Registry.sol";
+
 contract TimeLockedBackup {
     /*
     * @dev allow the user to sign a transaction with many nonces that allows them to transfer their eth (with a timelock) in the event that they lose access to their keys
     * @dev creates and the destroys the contract
-    * @param recipient - the recipient of msg.value (could be your exchange address or another wallet of yours)
-    * @param notValidBefore - the time required for this transaction to be valid
-    * @param notValidAfter - the time after which the transaction is no longer valid
+    * @param _registry - the registry contract that stores the user's requested info
     */
-    constructor(address payable recipient, uint notValidBefore, uint notValidAfter) public payable {
+    constructor(Registry _registry) public payable {
+        (uint notValidBefore, uint notValidAfter, address payable recipient) = _registry.userRequest(msg.sender);
+        require(recipient != address(0), "TimeLockedBackup: recipient not set");
         require(block.timestamp >= notValidBefore, "TimeLockedBackup: not valid yet");
         require(block.timestamp <= notValidAfter, "TimeLockedBackup: expired");
         selfdestruct(recipient);
