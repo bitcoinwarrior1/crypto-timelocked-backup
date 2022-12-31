@@ -1,7 +1,7 @@
 {
-  "name": "eth-timelocked-backup",
+  "name": "crypto-timelocked-backup",
   "version": "1.0.0",
-  "description": "backup your eth with timelocked contracts",
+  "description": "backup your crypo with timelocked transactions",
   "main": "index.js",
   "scripts": {
     "test": "npx hardhat test",
