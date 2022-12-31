@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "npx hardhat test",
-    "backup-hardhat": "npx hardhat run scripts/createBackup.ts --network hardhat",
-    "backup-goerli": "npx hardhat run scripts/createBackup.ts --network goerli",
-    "backup-mainnet": "npx hardhat run scripts/createBackup.ts --network mainnet"
+    "backup-hardhat": "npx hardhat run scripts/ethereum/createBackup.ts --network hardhat",
+    "backup-goerli": "npx hardhat run scripts/ethereum/createBackup.ts --network goerli",
+    "backup-mainnet": "npx hardhat run scripts/ethereum/createBackup.ts --network mainnet"
   },
   "repository": {
     "type": "git",
@@ -28,7 +28,12 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.7.3",
+    "bip65": "^1.0.3",
+    "bitcoinjs-lib": "^6.1.0",
     "dotenv": "^16.0.3",
-    "hardhat": "^2.12.0"
+    "ecpair": "^2.1.0",
+    "hardhat": "^2.12.0",
+    "superagent": "^8.0.6",
+    "tiny-secp256k1": "^2.2.1"
   }
 }
