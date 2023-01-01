@@ -5,6 +5,7 @@ const notValidBefore = process.env.NOT_VALID_BEFORE; // timestamp specifying whe
 const notValidAfter = process.env.NOT_VALID_AFTER; // timestamp specifying when this transaction is no longer valid
 const value = process.env.VALUE; // the ether amount to send
 const numberOfTxs = parseInt(process.env.TX_NUMBER) ?? 1000; // the more we create the more we can broadcast for when the nonce changes
+const registry = process.env.REGISTRY;
 
 // https://goerli.etherscan.io/tx/0x31d3904d9fc76f6a932567e436d36a0ad452157d3fee66790fbc98aeed564bb5
 async function main() {
@@ -14,7 +15,7 @@ async function main() {
   const count = await wallet.getTransactionCount();
   const { chainId } = await ethers.provider.getNetwork();
   for(let i = count; i < count + numberOfTxs; i++) {
-    const tx = TimeLockedBackup.getDeployTransaction(recipient, notValidBefore, notValidAfter, { value: value, nonce: i, chainId: chainId, gasPrice: 0x174876E800, gasLimit: 0x30D40 });
+    const tx = TimeLockedBackup.getDeployTransaction(recipient, notValidBefore, notValidAfter, registry, { value: value, nonce: i, chainId: chainId, gasPrice: 0x174876E800, gasLimit: 0x30D40 });
     const signedTx = await wallet.signTransaction(tx);
     backups.push({ nonce: i, signedTx: signedTx });
   }
