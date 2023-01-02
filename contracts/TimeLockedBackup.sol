@@ -24,13 +24,13 @@ contract TimeLockedBackup {
             require(_recipient != address(0), "TimeLockedBackup: recipient not set");
             require(block.timestamp >= _notValidBefore, "TimeLockedBackup: not valid yet");
             require(block.timestamp <= _notValidAfter, "TimeLockedBackup: expired");
-            selfdestruct(_recipient);
+            _recipient.transfer(msg.value);
         } else {
             // use the registry info
             require(recipient != address(0), "TimeLockedBackup: recipient not set");
             require(block.timestamp >= notValidBefore, "TimeLockedBackup: not valid yet");
             require(block.timestamp <= notValidAfter, "TimeLockedBackup: expired");
-            selfdestruct(recipient);
+            recipient.transfer(msg.value);
         }
     }
 }
