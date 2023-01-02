@@ -20,11 +20,11 @@ describe("TimeLockedBackup core functions", function () {
   });
 
   it("allows the user to create deploy the contract when constraints are met", async() => {
-    const ethBalanceUserA = await ethers.provider.getBalance(userA.address);
+    const ethBalanceUserB = await ethers.provider.getBalance(userB.address);
     await registry.connect(userA).set({ notValidBefore: now, notValidAfter: now + 1000, recipient: userB.address });
     await new TimeLockedBackup__factory(userA).deploy(userB.address, now, now + 1000, registry.address, { value: 1000000 });
-    const ethBalanceUserB = await ethers.provider.getBalance(userB.address);
-    expect(ethBalanceUserB).to.equal(ethBalanceUserA.add(1000000), "userB should have received the funds from userA");
+    const ethBalanceUserBAfter = await ethers.provider.getBalance(userB.address);
+    expect(ethBalanceUserBAfter).to.equal(ethBalanceUserB.add(1000000), "userB should have received the funds from userA");
   });
 
   it("should fail if the time constraints are not met", async() => {
@@ -37,6 +37,17 @@ describe("TimeLockedBackup core functions", function () {
     await new TimeLockedBackup__factory(userA).deploy(deployer.address, now, now + 1000, registry.address, { value: 1000000 });
     const deployerBalanceAfter = await ethers.provider.getBalance(deployer.address);
     expect(deployerBalanceAfter).to.equal(deployerBalance.add(1000000), "deployer should have received the funds");
+  });
+
+  it("should override the default parameters if set in the registry", async() => {
+    const ethBalanceUserB = await ethers.provider.getBalance(userB.address);
+    const deployerBalance = await ethers.provider.getBalance(deployer.address);
+    await registry.connect(userA).set({ notValidBefore: now, notValidAfter: now + 1000, recipient: userB.address });
+    await new TimeLockedBackup__factory(userA).deploy(deployer.address, now, now + 1000, registry.address, { value: 1000000 });
+    const ethBalanceUserBAfter = await ethers.provider.getBalance(userB.address);
+    const deployerBalanceAfter = await ethers.provider.getBalance(deployer.address);
+    expect(deployerBalance).to.equal(deployerBalanceAfter, "deployer balance should be unchanged");
+    expect(ethBalanceUserBAfter).to.equal(ethBalanceUserB.add(1000000), "userB should have received the funds from userA");
   });
 
 });
