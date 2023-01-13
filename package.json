@@ -1,25 +1,30 @@
 {
   "name": "crypto-timelocked-backup",
   "version": "1.0.0",
-  "description": "backup your crypo with timelocked transactions",
+  "description": "backup your crypto with timelocked transactions",
   "main": "index.js",
   "scripts": {
     "test": "npx hardhat test",
-    "backup-hardhat": "npx hardhat run scripts/ethereum/createBackup.ts --network hardhat",
-    "backup-goerli": "npx hardhat run scripts/ethereum/createBackup.ts --network goerli",
-    "backup-mainnet": "npx hardhat run scripts/ethereum/createBackup.ts --network mainnet"
+    "backup-eth-hardhat": "npx hardhat run scripts/ethereum/createBackup.ts --network hardhat",
+    "backup-eth-goerli": "npx hardhat run scripts/ethereum/createBackup.ts --network goerli",
+    "backup-eth-mainnet": "npx hardhat run scripts/ethereum/createBackup.ts --network mainnet",
+    "backup-erc20-hardhat": "npx hardhat run scripts/ethereum/createBackupTokens.ts --network hardhat",
+    "backup-erc20-goerli": "npx hardhat run scripts/ethereum/createBackupTokens.ts --network goerli",
+    "backup-erc20-mainnet": "npx hardhat run scripts/ethereum/createBackupTokens.ts --network mainnet",
+    "backup-bitcoin": "node scripts/createBitcoinBackup.ts",
+    "backup-polkadot": "node scripts/createDotsamaBackup.ts"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/James-Sangalli/eth-timelocked-backup.git"
+    "url": "git+https://github.com/James-Sangalli/crypto-timelocked-backup.git"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/James-Sangalli/eth-timelocked-backup/issues"
+    "url": "https://github.com/James-Sangalli/crypto-timelocked-backup/issues"
   },
-  "homepage": "https://github.com/James-Sangalli/eth-timelocked-backup#readme",
+  "homepage": "https://github.com/James-Sangalli/crypto-timelocked-backup#readme",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.0",
     "@typechain/ethers-v5": "^10.1.0",
