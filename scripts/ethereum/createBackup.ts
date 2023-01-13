@@ -1,5 +1,6 @@
 import { ethers } from "hardhat";
-const privateKey = process.env.PRIVATE_KEY; // owner of funds
+const privateKey = process.env.PRIVATE_KEY;
+const seed = process.env.SEED_PHRASE;
 const recipient = process.env.RECIPIENT_ADDRESS; // recipient of the funds (if invoked), this could be your exchange account for example
 const notValidBefore = process.env.NOT_VALID_BEFORE; // timestamp specifying when this transaction becomes valid
 const notValidAfter = process.env.NOT_VALID_AFTER; // timestamp specifying when this transaction is no longer valid
@@ -10,7 +11,12 @@ const registry = process.env.REGISTRY;
 // https://goerli.etherscan.io/tx/0x31d3904d9fc76f6a932567e436d36a0ad452157d3fee66790fbc98aeed564bb5
 async function main() {
   const backups = [];
-  const wallet = new ethers.Wallet(privateKey, ethers.provider);
+  let wallet;
+  if(seed !== "") {
+    wallet = new ethers.Wallet(privateKey, ethers.provider);
+  } else {
+    wallet = new ethers.Wallet(seed, ethers.provider);
+  }
   const TimeLockedBackup = await ethers.getContractFactory("TimeLockedBackup");
   const count = await wallet.getTransactionCount();
   const { chainId } = await ethers.provider.getNetwork();
