@@ -11,8 +11,8 @@
     "backup-erc20-hardhat": "npx hardhat run scripts/ethereum/createBackupTokens.ts --network hardhat",
     "backup-erc20-goerli": "npx hardhat run scripts/ethereum/createBackupTokens.ts --network goerli",
     "backup-erc20-mainnet": "npx hardhat run scripts/ethereum/createBackupTokens.ts --network mainnet",
-    "backup-bitcoin": "node scripts/createBitcoinBackup.ts",
-    "backup-polkadot": "node scripts/createDotsamaBackup.ts"
+    "backup-bitcoin": "npx hardhat run scripts/bitcoin/createBackupBitcoin.ts",
+    "backup-polkadot": "npx hardhat run scripts/dotsama/createDotsamaBackup.ts"
   },
   "repository": {
     "type": "git",

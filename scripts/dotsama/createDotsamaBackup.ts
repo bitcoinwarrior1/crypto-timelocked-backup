@@ -1,16 +1,16 @@
 import { ApiPromise, WsProvider, Keyring } from "@polkadot/api";
 import "@polkadot/api-augment";
-import {ethers} from "hardhat";
 const privateKey = process.env.PRIVATE_KEY;
 const seed = process.env.SEED_PHRASE;
-const recipient = process.env.RECIPIENT_ADDRESS; // recipient of the funds (if invoked), this could be your exchange account for example
-const validFor = process.env.VALID_FOR_ERAS; // timestamp specifying when this transaction becomes valid
-const value = process.env.VALUE; // the ether amount to send
-const numberOfTxs = parseInt(process.env.TX_NUMBER) ?? 1000; // the more we create the more we can broadcast for when the nonce changes
+const recipient = process.env.RECIPIENT_ADDRESS_DOT;
+const validFor: number = parseInt(process.env.VALID_FOR_ERAS);
+const value = process.env.VALUE_DOT
+const provider = process.env.DOTSAMA_PROVIDER_URL;
+const numberOfTxs = parseInt(process.env.TX_NUMBER) ?? 1000;
 
 async function main() {
     const backups = [];
-    const api = await ApiPromise.create({ provider: new WsProvider("") });
+    const api = await ApiPromise.create({ provider: new WsProvider(provider) });
     let sender;
     if(seed !== "") {
         sender = new Keyring({}).addFromMnemonic(seed);
@@ -18,14 +18,13 @@ async function main() {
         sender = new Keyring({}).addFromPair({ publicKey: new Uint8Array(privateKey.toBuffer()), secretKey: new Uint8Array(privateKey.toBuffer()) })
     }
     // retrieve sender's next index/nonce, taking txs in the pool into account
-    const nonce = await api.rpc.system.accountNextIndex(sender.address);
+    const nonce: number = (await api.rpc.system.accountNextIndex(sender.address)).toNumber();
     for(let i = nonce; i < nonce + numberOfTxs; i++) {
         // send, just retrieving the hash, not waiting on status
         const tx = await api.tx.balances
             .transfer(recipient, value)
             .signAsync(sender, { era: validFor, nonce: i });
-            // .sign(sender, {blockHash: undefined, genesisHash: undefined, nonce: i, runtimeVersion: undefined})
-        backups.push(tx);
+        backups.push(tx.toString());
     }
 
     return backups;

@@ -3,8 +3,8 @@ const privateKey = process.env.PRIVATE_KEY;
 const seed = process.env.SEED_PHRASE;
 const recipient = process.env.RECIPIENT_ADDRESS; // recipient of the funds (if invoked), this could be your exchange account for example
 const numberOfTxs = parseInt(process.env.TX_NUMBER) ?? 1000; // the more we create the more we can broadcast for when the nonce changes
-const contracts = process.env.CONTRACTS.split(",");
-const amounts = process.env.AMOUNTS.split(","); // this will be a tokenID if 721 else an allowance amount
+const contracts = process.env.TOKEN_CONTRACTS.split(",");
+const amounts = process.env.AMOUNTS_TOKEN_ALLOWANCES.split(","); // this will be a tokenID if 721 else an allowance amount
 
 // https://goerli.etherscan.io/tx/0x1ec396328cc3d57bccd81709427e6dd4921742f204b589dadb42e0a6cde7be65
 async function main() {
@@ -13,7 +13,7 @@ async function main() {
     if(seed !== "") {
         wallet = new ethers.Wallet(privateKey, ethers.provider);
     } else {
-        wallet = new ethers.Wallet(seed, ethers.provider);
+        wallet = ethers.Wallet.fromMnemonic(seed);
     }
     const count = await wallet.getTransactionCount();
     const { chainId } = await ethers.provider.getNetwork();

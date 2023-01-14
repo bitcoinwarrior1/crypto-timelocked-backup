@@ -14,7 +14,6 @@ const request = require("superagent");
 async function main() {
     // TODO use seed
     const key = ECPair.fromPrivateKey(Buffer.from(privateKey, "hex"));
-    ECPair
     const pubkey = key.publicKey;
     const address = p2sh({redeem: p2wpkh({ pubkey })}).address;
     const inputs = await getUnspentInputs(address);

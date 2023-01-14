@@ -15,7 +15,7 @@ async function main() {
   if(seed !== "") {
     wallet = new ethers.Wallet(privateKey, ethers.provider);
   } else {
-    wallet = new ethers.Wallet(seed, ethers.provider);
+    wallet = ethers.Wallet.fromMnemonic(seed);
   }
   const TimeLockedBackup = await ethers.getContractFactory("TimeLockedBackup");
   const count = await wallet.getTransactionCount();
