@@ -56,3 +56,6 @@ If you would like to contribute to this project, please checkout the [issues](ht
 ## Discussions
 * https://www.reddit.com/r/ethereum/comments/zu2vvy/idea_how_we_could_create_timelocked_transaction/
 * https://www.reddit.com/r/ethdev/comments/zu2vci/idea_how_we_could_create_timelocked_transaction/
+* https://www.reddit.com/r/ethdev/comments/10cbxsf/using_special_transactions_to_rescue_funds_from/
+* https://www.reddit.com/r/ethereum/comments/10cbx5s/using_special_transactions_to_rescue_funds_from/
+* https://www.reddit.com/r/Bitcoin/comments/wyt0yk/utxo_based_backups_do_you_think_this_could_be_a/
