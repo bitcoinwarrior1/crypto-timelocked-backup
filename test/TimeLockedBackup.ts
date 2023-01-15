@@ -10,7 +10,7 @@ describe("TimeLockedBackup core functions", function () {
   let deployer: SignerWithAddress;
   let registry: Registry;
   let block;
-  let now;
+  let now: number;
 
   beforeEach(async() => {
     [deployer, userA, userB] = await ethers.getSigners();

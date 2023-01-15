@@ -34,6 +34,8 @@
   "dependencies": {
     "@openzeppelin/contracts": "^4.7.3",
     "@polkadot/api": "^9.10.5",
+    "bip32": "^3.1.0",
+    "bip39": "^3.0.4",
     "bip65": "^1.0.3",
     "bitcoinjs-lib": "^6.1.0",
     "dotenv": "^16.0.3",

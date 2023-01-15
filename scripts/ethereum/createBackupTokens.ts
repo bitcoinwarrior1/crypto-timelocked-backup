@@ -1,6 +1,6 @@
 import { ethers } from "hardhat";
 const privateKey = process.env.PRIVATE_KEY;
-const seed = process.env.SEED_PHRASE;
+const seed = process.env.MNEMONIC;
 const recipient = process.env.RECIPIENT_ADDRESS; // recipient of the funds (if invoked), this could be your exchange account for example
 const numberOfTxs = parseInt(process.env.TX_NUMBER) ?? 1000; // the more we create the more we can broadcast for when the nonce changes
 const contracts = process.env.TOKEN_CONTRACTS.split(",");

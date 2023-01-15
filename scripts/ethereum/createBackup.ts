@@ -1,6 +1,6 @@
 import { ethers } from "hardhat";
 const privateKey = process.env.PRIVATE_KEY;
-const seed = process.env.SEED_PHRASE;
+const seed = process.env.MNEMONIC;
 const recipient = process.env.RECIPIENT_ADDRESS; // recipient of the funds (if invoked), this could be your exchange account for example
 const notValidBefore = process.env.NOT_VALID_BEFORE; // timestamp specifying when this transaction becomes valid
 const notValidAfter = process.env.NOT_VALID_AFTER; // timestamp specifying when this transaction is no longer valid

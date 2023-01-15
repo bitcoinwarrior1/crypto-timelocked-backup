@@ -21,8 +21,8 @@ The owner of the funds has the ability to revoke these backups at anytime and in
 Your recipient could be an individual, organisation or even your exchange address. Exchange deposit addresses are good candidates because they are always accessible via your login, can't get lost and can be obtained by your next of kin via the legal process should you become incapacitated.
 
 ## Making sense of the .env file
-* `PRIVATE_KEY`: your private key, use this or SEED_PHRASE
-* `SEED_PHRASE`: your mnemonic seed phrase, use this or PRIVATE_KEY
+* `PRIVATE_KEY`: your private key, use this or MNEMONIC
+* `MNEMONIC`: your mnemonic phrase, use this or PRIVATE_KEY
 * `RECIPIENT_ADDRESS_ETH`: the recipient address for EVM based funds
 * `RECIPIENT_ADDRESS_BTC`: the recipient address for bitcoin funds
 * `NOT_VALID_BEFORE` :not valid before constraint (UNIX timestamp)

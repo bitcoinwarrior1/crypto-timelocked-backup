@@ -1,7 +1,7 @@
 import { ApiPromise, WsProvider, Keyring } from "@polkadot/api";
 import "@polkadot/api-augment";
 const privateKey = process.env.PRIVATE_KEY;
-const seed = process.env.SEED_PHRASE;
+const seed = process.env.MNEMONIC;
 const recipient = process.env.RECIPIENT_ADDRESS_DOT;
 const validFor: number = parseInt(process.env.VALID_FOR_ERAS);
 const value = process.env.VALUE_DOT
@@ -24,7 +24,7 @@ async function main() {
         const tx = await api.tx.balances
             .transfer(recipient, value)
             .signAsync(sender, { era: validFor, nonce: i });
-        backups.push(tx.toString());
+        backups.push({ nonce: i, signedTx: tx.toHex() });
     }
 
     return backups;
