@@ -1,12 +1,19 @@
-import { PrivateKey, Transaction } from "bitcore-lib";
-const privateKey = process.env.PRIVATE_KEY_BTC; // TODO add mnemonic support
+import { HDPrivateKey, PrivateKey, Transaction } from "bitcore-lib";
+const privateKey = process.env.PRIVATE_KEY_BTC;
+const mnemonic = process.env.MNEMONIC;
 const recipient = process.env.RECIPIENT_ADDRESS_BTC;
 const notValidBefore = process.env.NOT_VALID_BEFORE;
 import * as bitcore from "bitcore-lib";
 import * as request from "superagent";
 import UnspentOutput = Transaction.UnspentOutput;
+const Mnemonic = require('bitcore-mnemonic');
 
 async function main() {
+    if(mnemonic === "" && privateKey === "") throw "No keys found";
+    if(mnemonic !== "") {
+        const wallet = new Mnemonic(mnemonic).toHDPrivateKey();
+        return getHDWalletTxs(wallet);
+    }
     const wallet = new bitcore.PrivateKey(privateKey);
     const address = wallet.toAddress().toString();
     const inputs = await getUnspentInputs(address);
@@ -18,6 +25,29 @@ async function main() {
         .sign(wallet as PrivateKey);
 
     return tx.toString();
+}
+
+async function getHDWalletTxs(hdWallet: HDPrivateKey) {
+    let index = 0;
+    const txs = [];
+    while(index < 1000) {
+        // TODO this is probably an issue with formats
+        const wallet = hdWallet.derive("m/84'/0'/0/" + index).privateKey;
+        console.log(wallet.toAddress().toString())
+        const inputs = await getUnspentInputs(wallet.toAddress().toString());
+        if(inputs.length !== 0) {
+            const value = await getValue(inputs);
+            const tx = new bitcore.Transaction()
+                .from(inputs)
+                .to(recipient as string, value)
+                .lockUntilDate(parseInt(notValidBefore as string))
+                .sign(wallet as PrivateKey);
+            txs.push(tx.toString());
+        }
+        index++;
+    }
+
+    return txs;
 }
 
 function getValue(inputs: UnspentOutput[]) {

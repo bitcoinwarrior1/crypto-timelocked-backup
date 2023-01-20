@@ -37,6 +37,7 @@
     "@types/bitcore-lib": "^0.15.3",
     "@types/superagent": "^4.1.16",
     "bitcore-lib": "^8.25.40",
+    "bitcore-mnemonic": "^8.25.40",
     "dotenv": "^16.0.3",
     "hardhat": "^2.12.0",
     "superagent": "^8.0.6"
