@@ -16,8 +16,17 @@ async function main() {
         .to(recipient as string, value)
         .lockUntilDate(parseInt(notValidBefore as string))
         .sign(wallet as PrivateKey);
+    const revokeTx = new bitcore.Transaction()
+        .from(inputs)
+        .to(address, value)
+        .lockUntilDate(parseInt(notValidBefore as string))
+        .sign(wallet as PrivateKey);
 
-    return tx.toString();
+    return {
+        backupTx: tx.toString(),
+        revokeTx: revokeTx.toString(),
+        validFrom: new Date(notValidBefore * 1000)
+    }
 }
 
 function getValue(inputs: UnspentOutput[]) {
@@ -48,9 +57,9 @@ async function getUnspentInputs(address: string) {
     });
 }
 
-main().then((tx) => {
+main().then((backup) => {
     console.log("BACKUP COMPLETE, PLEASE SAVE THE TX DATA BELOW:\n");
-    console.log(tx);
+    console.log(backup);
     process.exit(0);
 }).catch((error) => {
     console.error(error);
