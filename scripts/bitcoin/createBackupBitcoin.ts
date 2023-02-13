@@ -34,7 +34,10 @@ async function main() {
         revokeTx: revokeTx.toString(),
         validFrom: new Date(notValidBefore * 1000),
         recipient: recipient,
-        recipientPrivateKey: key
+        recipientPrivateKey: key,
+        instructions: "This backup allows you to recover your funds to the recipient address above at and beyond the validFrom date. " +
+            "To recover the funds or revoke this backup you can broadcast the transaction via https://www.blockchain.com/explorer/assets/btc/broadcast-transaction. " +
+            "Note that the revoke transaction can be broadcast at anytime and will invalidate this backup, as will spending any of the inputs included in the transaction."
     }
 }
 
