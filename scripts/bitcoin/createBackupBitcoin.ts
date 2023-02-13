@@ -1,16 +1,23 @@
 import { PrivateKey, Transaction } from "bitcore-lib";
 const privateKey = process.env.PRIVATE_KEY_BTC; // TODO add mnemonic support
-const recipient = process.env.RECIPIENT_ADDRESS_BTC;
+let recipient = process.env.RECIPIENT_ADDRESS_BTC;
 const notValidBefore = process.env.NOT_VALID_BEFORE;
 import * as bitcore from "bitcore-lib";
 import * as request from "superagent";
 import UnspentOutput = Transaction.UnspentOutput;
 
 async function main() {
+    let key = "The recipient's private key is stored elsewhere";
     const wallet = new bitcore.PrivateKey(privateKey);
     const address = wallet.toAddress().toString();
     const inputs = await getUnspentInputs(address);
     const value = getValue(inputs);
+    if(recipient === "") {
+        // if the user does not have a recipient, create a new key and add it to the backup
+        const privateKey = new bitcore.PrivateKey();
+        key = privateKey.toWIF();
+        recipient = privateKey.toAddress().toString();
+    }
     const tx = new bitcore.Transaction()
         .from(inputs)
         .to(recipient as string, value)
@@ -25,7 +32,9 @@ async function main() {
     return {
         backupTx: tx.toString(),
         revokeTx: revokeTx.toString(),
-        validFrom: new Date(notValidBefore * 1000)
+        validFrom: new Date(notValidBefore * 1000),
+        recipient: recipient,
+        recipientPrivateKey: key
     }
 }
 
