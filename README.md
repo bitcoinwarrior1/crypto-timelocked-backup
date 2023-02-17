@@ -73,3 +73,6 @@ If you would like to contribute to this project, please checkout the [issues](ht
 * https://www.reddit.com/r/ethdev/comments/10cbxsf/using_special_transactions_to_rescue_funds_from/
 * https://www.reddit.com/r/ethereum/comments/10cbx5s/using_special_transactions_to_rescue_funds_from/
 * https://www.reddit.com/r/Bitcoin/comments/wyt0yk/utxo_based_backups_do_you_think_this_could_be_a/
+* https://www.reddit.com/r/cryptodevs/comments/114bbnm/how_to_backup_your_bitcoin_using_time_locked/
+* https://www.reddit.com/r/BitcoinTechnology/comments/114bbbx/how_to_backup_your_bitcoin_using_time_locked/
+* https://www.reddit.com/r/Bitcoin/comments/114b9ck/how_to_backup_your_bitcoin_using_time_locked/
