@@ -26,7 +26,6 @@ async function main() {
     const revokeTx = new bitcore.Transaction()
         .from(inputs)
         .to(address, value)
-        .lockUntilDate(parseInt(notValidBefore as string))
         .sign(wallet as PrivateKey);
 
     return JSON.stringify({
