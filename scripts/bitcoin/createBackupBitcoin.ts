@@ -34,6 +34,7 @@ async function main() {
         revokeTx: revokeTx.toString(),
         validFrom: new Date(notValidBefore * 1000),
         recipient: recipient,
+        valueInSats: value,
         recipientPrivateKey: key,
         instructions: "This backup allows you to recover your funds to the recipient address above at and beyond the validFrom date. " +
             "To recover the funds or revoke this backup you can broadcast the transaction via https://www.blockchain.com/explorer/assets/btc/broadcast-transaction. " +
@@ -51,7 +52,6 @@ function getValue(inputs: UnspentOutput[]) {
     } else {
         value = parseInt(process.env.VALUE_BTC as string);
     }
-
     return value;
 }
 
