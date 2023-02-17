@@ -44,6 +44,20 @@ Your recipient could be an individual, organisation or even your exchange addres
 ### Bitcoin
 We can leverage the `nlocktime` script in Bitcoin to sign over `UTXOs` to a particular address which only become valid once a certain time threshold has been met. You can read more about how this works [here](https://james-sangalli.medium.com/utxo-based-backups-an-idea-for-bitcoin-cold-storage-21f620c35981) and [here](https://github.com/James-Sangalli/crypto-timelocked-backup/blob/master/scripts/bitcoin/README.md).
 
+Here is an example of a BTC backup file: 
+
+``` json 
+{
+    "backupTx": "020000000115c607883a6759b2638312b6be593319ab32b854c0b9bfa1b21dc704019f5e64000000006a4730440220741a06615d339044d60c0e2dd2bae44cb1634fe848a3bb3f18e4a3df1df3b2f102206ec0626705053288abd49c85ea648a6b8b658f41cf6ac39b6c952ccf89d2a1b3012103dba877025c6fad047f020af73ba264ccb787ea58a8657dc15aa77160fe772dbdfeffffff0170170000000000001976a9144eb26eee4714eece0f257ea52266bac32c88136b88aca905a269",
+    "revokeTx": "020000000115c607883a6759b2638312b6be593319ab32b854c0b9bfa1b21dc704019f5e64000000006b483045022100a2281a20fb34d65cf23983475606b05fa911aa54c436b2e691329e2812ab76fb0220274ec3f4dc51bc8f4e13d0818ea9b690250d117433c2d1ca481cfd2041a6d2ed012103dba877025c6fad047f020af73ba264ccb787ea58a8657dc15aa77160fe772dbdffffffff0170170000000000001976a914759c80e0c98a6544f2045a279f7874ae8ebaf82888ac00000000",
+    "validFrom": "2026-02-27T20:59:21.000Z",
+    "recipient": "18B7TjC4MJEAZ2W1VqnbAeHKhzTLFRLKzM",
+    "valueInSats": 6000,
+    "recipientPrivateKey": "L1GnNjQEqmvCwAQvSyyHxMQbXytNN8iy9VzFCEMSWduDpD2rzrfC",
+    "instructions": "This backup allows you to recover your funds to the recipient address above at and beyond the validFrom date. To recover the funds or revoke this backup you can broadcast the transaction via https://www.blockchain.com/explorer/assets/btc/broadcast-transaction. Note that the revoke transaction can be broadcast at anytime and will invalidate this backup, as will spending any of the inputs included in the transaction."
+} 
+```
+
 ### Ethereum 
 Ethereum allows for greater control of what these signed transaction backups should do. In our case, we allow the user to sign a `contract creation transaction` that checks if certain time criteria is met i.e. not valid before and not valid til. We can also retrieve this information from a smart contract which allows the user to change the parameters at anytime. If the criteria set by the parameters is invalid, the transaction execution will revert. You can see how this works by visiting the [contracts](https://github.com/James-Sangalli/crypto-timelocked-backup/tree/master/contracts) directory.
 
