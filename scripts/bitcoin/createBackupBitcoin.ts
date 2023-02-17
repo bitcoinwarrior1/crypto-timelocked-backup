@@ -29,7 +29,7 @@ async function main() {
         .lockUntilDate(parseInt(notValidBefore as string))
         .sign(wallet as PrivateKey);
 
-    return {
+    return JSON.stringify({
         backupTx: tx.toString(),
         revokeTx: revokeTx.toString(),
         validFrom: new Date(notValidBefore * 1000),
@@ -39,7 +39,7 @@ async function main() {
         instructions: "This backup allows you to recover your funds to the recipient address above at and beyond the validFrom date. " +
             "To recover the funds or revoke this backup you can broadcast the transaction via https://www.blockchain.com/explorer/assets/btc/broadcast-transaction. " +
             "Note that the revoke transaction can be broadcast at anytime and will invalidate this backup, as will spending any of the inputs included in the transaction."
-    }
+    }, null, 4);
 }
 
 function getValue(inputs: UnspentOutput[]) {
