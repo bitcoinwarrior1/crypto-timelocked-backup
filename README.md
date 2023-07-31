@@ -76,3 +76,5 @@ If you would like to contribute to this project, please checkout the [issues](ht
 * https://www.reddit.com/r/cryptodevs/comments/114bbnm/how_to_backup_your_bitcoin_using_time_locked/
 * https://www.reddit.com/r/BitcoinTechnology/comments/114bbbx/how_to_backup_your_bitcoin_using_time_locked/
 * https://www.reddit.com/r/Bitcoin/comments/114b9ck/how_to_backup_your_bitcoin_using_time_locked/
+* https://www.reddit.com/r/ledgerwallet/comments/15acul3/time_locked_transaction_backups_with_ledger/
+* https://www.reddit.com/r/TREZOR/comments/15acyrz/time_locked_transaction_backups_with_trezor/
