@@ -12,7 +12,7 @@ const registry = process.env.REGISTRY;
 async function main() {
   const backups = [];
   let wallet;
-  if(seed !== "") {
+  if (seed !== "") {
     wallet = new ethers.Wallet(privateKey, ethers.provider);
   } else {
     wallet = ethers.Wallet.fromMnemonic(seed);
@@ -20,8 +20,20 @@ async function main() {
   const TimeLockedBackup = await ethers.getContractFactory("TimeLockedBackup");
   const count = await wallet.getTransactionCount();
   const { chainId } = await ethers.provider.getNetwork();
-  for(let i = count; i < count + numberOfTxs; i++) {
-    const tx = TimeLockedBackup.getDeployTransaction(recipient, notValidBefore, notValidAfter, registry, { value: value, nonce: i, chainId: chainId, gasPrice: 0x174876E800, gasLimit: 0x30D40 });
+  for (let i = count; i < count + numberOfTxs; i++) {
+    const tx = TimeLockedBackup.getDeployTransaction(
+      recipient,
+      notValidBefore,
+      notValidAfter,
+      registry,
+      {
+        value: value,
+        nonce: i,
+        chainId: chainId,
+        gasPrice: 0x174876e800,
+        gasLimit: 0x30d40,
+      }
+    );
     const signedTx = await wallet.signTransaction(tx);
     backups.push({ nonce: i, signedTx: signedTx });
   }
@@ -29,11 +41,13 @@ async function main() {
   return backups;
 }
 
-main().then((backups) => {
-  console.log("BACKUPS COMPLETE, PLEASE SAVE THE DATA BELOW:\n");
-  console.log(backups);
-  process.exit(0);
-}).catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+main()
+  .then((backups) => {
+    console.log("BACKUPS COMPLETE, PLEASE SAVE THE DATA BELOW:\n");
+    console.log(backups);
+    process.exit(0);
+  })
+  .catch((error) => {
+    console.error(error);
+    process.exitCode = 1;
+  });
